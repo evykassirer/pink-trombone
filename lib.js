@@ -1,19 +1,4 @@
-var backCanvas = document.getElementById("backCanvas");
-var backCtx = backCanvas.getContext("2d");
-var tractCanvas = document.getElementById("tractCanvas");
-var tractCtx = tractCanvas.getContext("2d");
 
-var sampleRate;
-var time = 0;
-var temp = {a:0, b:0};
-var alwaysVoice = true;
-var autoWobble = true;
-var noiseFreq = 500;
-var noiseQ = 0.7;
-var palePink = "#FFEEF5";
-var isFirefox = false;
-var browser=navigator.userAgent.toLowerCase();
-if (browser.indexOf('firefox') > -1) isFirefox = true;
 
 var UI =
 {
@@ -87,7 +72,7 @@ var UI =
         ctx.font="20px Arial";
         //ctx.fillText("(tap to start)", 300, 380);
 
-        if (isFirefox)
+        if (cachedIsFirefox)
         {
             ctx.font="20px Arial";
             ctx.fillText("(sorry - may work poorly with the Firefox browser)", 300, 430);
