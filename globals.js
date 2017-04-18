@@ -7,5 +7,3 @@ var sampleRate;
 var time = 0;
 var alwaysVoice = true;
 var autoWobble = true;
-
-var cachedIsFirefox = isFirefox();
