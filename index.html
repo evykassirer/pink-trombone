@@ -18,11 +18,18 @@ style = "position: absolute; z-index: 0; background-color:transparent; margin: 0
 <script type="text/javascript" src="./utils/math.js"></script>
 <script type="text/javascript" src="./utils/perlin-and-simplex-noise.js"></script>
 <script type="text/javascript" src="./utils/browser-detection.js"></script>
+<script type="text/javascript" src="./utils/make-button.js"></script>
 
 <script type="text/javascript" src="./config.js"></script>
 
+<!-- The only order requirement is that globals is before all the /lib files and the lib files are before the index.js -->
 <script type="text/javascript" src="./globals.js"></script>
-<script type="text/javascript" src="./lib.js"></script>
+
+<script type="text/javascript" src="./lib/ui.js"></script>
+<script type="text/javascript" src="./lib/audio-system.js"></script>
+<script type="text/javascript" src="./lib/glottis.js"></script>
+<script type="text/javascript" src="./lib/tract.js"></script>
+<script type="text/javascript" src="./lib/tract-ui.js"></script>
 
 <script type="text/javascript" src="./index.js"></script>
 
