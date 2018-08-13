@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.0.0-rc.1",
-    "@babel/runtime": "^7.0.0-rc.1"
+    "@babel/runtime": "^7.0.0-rc.1",
+    "osc-js": "^1.2.2"
   }
 }
