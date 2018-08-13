@@ -1,0 +1,39 @@
+{
+  "name": "pink-trombone",
+  "version": "1.0.0",
+  "description": "osc controlled pink trombone",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "start:dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesstaub/pink-trombone.git"
+  },
+  "keywords": [
+    "pink",
+    "trombone",
+    "osc"
+  ],
+  "author": "James Staub",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesstaub/pink-trombone/issues"
+  },
+  "homepage": "https://github.com/jamesstaub/pink-trombone#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
+    "babel-loader": "^8.0.0-beta.4",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/runtime": "^7.0.0-rc.1"
+  }
+}
