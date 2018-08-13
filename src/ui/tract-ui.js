@@ -1,3 +1,18 @@
+import Tract from "../audio/tract";
+import Glottis from "../audio/glottis";
+
+import UI from "./ui";
+
+var tractCanvas = document.getElementById("tractCanvas");
+var tractCtx = tractCanvas.getContext("2d");
+var backCanvas = document.getElementById("backCanvas");
+var backCtx = backCanvas.getContext("2d");
+
+var temp = {
+    a: 0,
+    b: 0
+};
+
 var TractUI = {
     originX: 340,
     originY: 449,
@@ -69,8 +84,7 @@ var TractUI = {
         var angle = this.angleOffset + i * this.angleScale * Math.PI / (Tract.lipStart - 1);
         var r = this.radius - this.scale * d;
         this.ctx.beginPath();
-        this.ctx.arc(this.originX - r * Math.cos(angle), this.originY - r * Math.sin(angle), radius, 0,
-            2 * Math.PI);
+        this.ctx.arc(this.originX - r * Math.cos(angle), this.originY - r * Math.sin(angle), radius, 0, 2 * Math.PI);
         this.ctx.fill();
     },
 
@@ -116,8 +130,7 @@ var TractUI = {
         this.ctx.strokeStyle = this.fillColour;
         this.ctx.fillStyle = this.fillColour;
         this.moveTo(Tract.noseStart, -this.noseOffset);
-        for (var i = 1; i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -this.noseOffset -
-            Tract.noseDiameter[i] * 0.9);
+        for (var i = 1; i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -this.noseOffset - Tract.noseDiameter[i] * 0.9);
         for (var i = Tract.noseLength - 1; i >= 1; i--) this.lineTo(i + Tract.noseStart, -this.noseOffset);
         this.ctx.closePath();
         //this.ctx.stroke();
@@ -173,11 +186,9 @@ var TractUI = {
         this.ctx.strokeStyle = this.lineColour;
         this.ctx.lineJoin = 'round';
         this.moveTo(Tract.noseStart, -this.noseOffset);
-        for (var i = 1; i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -this.noseOffset -
-            Tract.noseDiameter[i] * 0.9);
+        for (var i = 1; i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -this.noseOffset - Tract.noseDiameter[i] * 0.9);
         this.moveTo(Tract.noseStart + velumAngle, -this.noseOffset);
-        for (var i = Math.ceil(velumAngle); i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -
-            this.noseOffset);
+        for (var i = Math.ceil(velumAngle); i < Tract.noseLength; i++) this.lineTo(i + Tract.noseStart, -this.noseOffset);
         this.ctx.stroke();
 
 
@@ -328,8 +339,7 @@ var TractUI = {
 
         //outline
         this.moveTo(this.tongueLowerIndexBound, this.innerTongueControlRadius);
-        for (var i = this.tongueLowerIndexBound + 1; i <= this.tongueUpperIndexBound; i++) this.lineTo(
-            i, this.innerTongueControlRadius);
+        for (var i = this.tongueLowerIndexBound + 1; i <= this.tongueUpperIndexBound; i++) this.lineTo(i, this.innerTongueControlRadius);
         this.lineTo(this.tongueIndexCentre, this.outerTongueControlRadius);
         this.ctx.closePath();
         this.ctx.stroke();
@@ -354,8 +364,7 @@ var TractUI = {
         this.ctx.globalAlpha = 1.0;
 
         //circle for tongue position
-        var angle = this.angleOffset + this.tongueIndex * this.angleScale * Math.PI / (Tract.lipStart -
-            1);
+        var angle = this.angleOffset + this.tongueIndex * this.angleScale * Math.PI / (Tract.lipStart - 1);
         var r = this.radius - this.scale * (this.tongueDiameter);
         var x = this.originX - r * Math.cos(angle);
         var y = this.originY - r * Math.sin(angle);
@@ -416,8 +425,7 @@ var TractUI = {
                 var index = TractUI.getIndex(x, y);
                 var diameter = TractUI.getDiameter(x, y);
                 if (index >= this.tongueLowerIndexBound - 4 && index <= this.tongueUpperIndexBound + 4 &&
-                    diameter >= this.innerTongueControlRadius - 0.5 && diameter <= this.outerTongueControlRadius +
-                    0.5) {
+                    diameter >= this.innerTongueControlRadius - 0.5 && diameter <= this.outerTongueControlRadius + 0.5) {
                     this.tongueTouch = touch;
                 }
             }
@@ -428,15 +436,13 @@ var TractUI = {
             var y = this.tongueTouch.y;
             var index = TractUI.getIndex(x, y);
             var diameter = TractUI.getDiameter(x, y);
-            var fromPoint = (this.outerTongueControlRadius - diameter) / (this.outerTongueControlRadius -
-                this.innerTongueControlRadius);
+            var fromPoint = (this.outerTongueControlRadius - diameter) / (this.outerTongueControlRadius - this.innerTongueControlRadius);
             fromPoint = Math.clamp(fromPoint, 0, 1);
             fromPoint = Math.pow(fromPoint, 0.58) - 0.2 * (fromPoint * fromPoint - fromPoint); //horrible kludge to fit curve to straight line
             this.tongueDiameter = Math.clamp(diameter, this.innerTongueControlRadius, this.outerTongueControlRadius);
             //this.tongueIndex = Math.clamp(index, this.tongueLowerIndexBound, this.tongueUpperIndexBound);
             var out = fromPoint * 0.5 * (this.tongueUpperIndexBound - this.tongueLowerIndexBound);
-            this.tongueIndex = Math.clamp(index, this.tongueIndexCentre - out, this.tongueIndexCentre +
-                out);
+            this.tongueIndex = Math.clamp(index, this.tongueIndexCentre - out, this.tongueIndexCentre + out);
         }
 
         this.setRestDiameter();
@@ -445,6 +451,7 @@ var TractUI = {
         //other constrictions and nose
         Tract.velumTarget = 0.01;
         for (var j = 0; j < UI.touchesWithMouse.length; j++) {
+            var intIndex;
             var touch = UI.touchesWithMouse[j];
             if (!touch.alive) continue;
             var x = touch.x;
@@ -474,8 +481,7 @@ var TractUI = {
                     else if (relpos > width) shrink = 1;
                     else shrink = 0.5 * (1 - Math.cos(Math.PI * relpos / width));
                     if (diameter < Tract.targetDiameter[intIndex + i]) {
-                        Tract.targetDiameter[intIndex + i] = diameter + (Tract.targetDiameter[intIndex +
-                            i] - diameter) * shrink;
+                        Tract.targetDiameter[intIndex + i] = diameter + (Tract.targetDiameter[intIndex + i] - diameter) * shrink;
                     }
                 }
             }
@@ -483,3 +489,5 @@ var TractUI = {
     },
 
 }
+
+export default TractUI;
