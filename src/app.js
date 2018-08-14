@@ -5,11 +5,13 @@ import Tract from "./audio/tract";
 import UI from "./ui/ui";
 import TractUI from "./ui/tract-ui";
 
+import OSCAPI from "./osc/api";
+
 // globals
 window.time = 0;
 window.sampleRate = 441000;
-window.autoWobble = true;
-window.alwaysVoice = true;
+window.autoWobble = false;
+window.alwaysVoice = false;
 window.palePink = "#FFEEF5";
 
 Math.clamp = function (number, min, max) {
@@ -46,11 +48,14 @@ if (browser.indexOf('firefox') > -1) isFirefox = true;
 
 document.body.style.cursor = 'pointer';
 
+
 AudioSystem.init();
 UI.init();
 Glottis.init();
 Tract.init();
 TractUI.init();
+OSCAPI.init();
+
 
 requestAnimationFrame(redraw);
 

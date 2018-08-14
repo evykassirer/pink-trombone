@@ -80,7 +80,7 @@ var UI = {
 
         this.aboutButton = makeButton(460, 392, 140, 30, "about...", true);
         this.alwaysVoiceButton = makeButton(460, 428, 140, 30, "always voice", true);
-        this.autoWobbleButton = makeButton(460, 464, 140, 30, "pitch wobble", true);
+        this.autoWobbleButton = makeButton(460, 464, 140, 30, "pitch wobble", false);
 
         tractCanvas.addEventListener('touchstart', UI.startTouches);
         tractCanvas.addEventListener('touchmove', UI.moveTouches);
@@ -360,6 +360,7 @@ var UI = {
     handleTouches: function (event) {
         TractUI.handleTouches();
         Glottis.handleTouches();
+        Glottis.handleOSC();
     },
 
     updateTouches: function () {

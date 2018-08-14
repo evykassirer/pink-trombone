@@ -31,7 +31,12 @@ const config = {
         new HtmlWebpackPlugin({
             template: 'src/index.html'
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            'osc-js': path.resolve(__dirname, 'node_modules/osc-js/lib/osc.browser.js'),
+        },
+    },
 };
 
 module.exports = config;

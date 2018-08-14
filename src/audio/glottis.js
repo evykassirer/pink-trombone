@@ -1,4 +1,5 @@
 import UI from "../ui/ui";
+import OSCAPI from "../osc/api";
 
 var backCanvas = document.getElementById("backCanvas");
 var backCtx = backCanvas.getContext("2d");
@@ -150,6 +151,15 @@ var Glottis = {
             this.y = local_y + this.keyboardTop + 10;
         }
         Glottis.isTouched = (this.touch != 0);
+    },
+
+    handleOSC: function(){
+        var semitone = OSCAPI.glottis.semitone;     
+        Glottis.UIFrequency = this.baseNote * Math.pow(2, semitone / 12);
+        Glottis.UITenseness = OSCAPI.glottis.tenseness;
+        Glottis.loudness = OSCAPI.glottis.loudness;
+        Glottis.vibratoAmount = OSCAPI.glottis.vibratoAmount;
+        Glottis.vibratoFrequency = OSCAPI.glottis.vibratoFrequency;  
     },
 
     runStep: function (lambda, noiseSource) {
