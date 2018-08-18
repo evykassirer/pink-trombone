@@ -219,11 +219,10 @@ var UI = {
 
     buttonsHandleTouchStart: function (touch) {
         this.alwaysVoiceButton.handleTouchStart(touch);
-        alwaysVoice = this.alwaysVoiceButton.switchedOn;
+        window.alwaysVoice = this.alwaysVoiceButton.switchedOn;
         this.autoWobbleButton.handleTouchStart(touch);
-        autoWobble = this.autoWobbleButton.switchedOn;
+        window.autoWobble = this.autoWobbleButton.switchedOn;
         this.aboutButton.handleTouchStart(touch);
-
     },
 
     startTouches: function (event) {
@@ -332,7 +331,7 @@ var UI = {
         touch.index = TractUI.getIndex(touch.x, touch.y);
         touch.diameter = TractUI.getDiameter(touch.x, touch.y);
         UI.mouseTouch = touch;
-        UI.touchesWithMouse.push(touch);
+        UI.touchesWithMouse.push(touch); 
         UI.buttonsHandleTouchStart(touch);
         UI.handleTouches();
     },
@@ -358,9 +357,11 @@ var UI = {
     },
 
     handleTouches: function (event) {
-        TractUI.handleTouches();
+        Glottis.handleOSCParams();
         Glottis.handleTouches();
-        Glottis.handleOSC();
+        
+        TractUI.handleOSC();
+        TractUI.handleTouches();
     },
 
     updateTouches: function () {

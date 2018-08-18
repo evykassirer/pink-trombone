@@ -153,13 +153,30 @@ var Glottis = {
         Glottis.isTouched = (this.touch != 0);
     },
 
-    handleOSC: function(){
+    handleOSCParams: function(){
         var semitone = OSCAPI.glottis.semitone;     
         Glottis.UIFrequency = this.baseNote * Math.pow(2, semitone / 12);
-        Glottis.UITenseness = OSCAPI.glottis.tenseness;
-        Glottis.loudness = OSCAPI.glottis.loudness;
-        Glottis.vibratoAmount = OSCAPI.glottis.vibratoAmount;
-        Glottis.vibratoFrequency = OSCAPI.glottis.vibratoFrequency;  
+
+        Glottis.UITenseness = OSCAPI.glottis.tenseness || Glottis.UITenseness;
+        Glottis.loudness = OSCAPI.glottis.loudness || Glottis.loudness;
+
+        Glottis.vibratoAmount = OSCAPI.glottis.vibratoAmount || Glottis.vibratoAmount;
+        Glottis.vibratoFrequency = OSCAPI.glottis.vibratoFrequency || Glottis.vibratoFrequency;
+
+    },
+    handleOSCTouches: function () {
+        if (this.touch != 0 && !this.touch.alive) this.touch = 0;
+
+        if (this.touch == 0) {
+            for (var j = 0; j < UI.touchesWithMouse.length; j++) {
+                var touch = UI.touchesWithMouse[j];
+                if (!touch.alive) continue;
+                if (touch.y < this.keyboardTop) continue;
+                this.touch = touch;
+            }
+        }
+
+        Glottis.isTouched = (this.touch != 0);
     },
 
     runStep: function (lambda, noiseSource) {
@@ -201,9 +218,9 @@ var Glottis = {
         this.oldTenseness = this.newTenseness;
         this.newTenseness = this.UITenseness +
             0.1 * noise.simplex1(this.totalTime * 0.46) + 0.05 * noise.simplex1(this.totalTime * 0.36);
-        if (!this.isTouched && alwaysVoice) this.newTenseness += (3 - this.UITenseness) * (1 - this.intensity);
+        if (!this.isTouched && window.alwaysVoice) this.newTenseness += (3 - this.UITenseness) * (1 - this.intensity);
 
-        if (this.isTouched || alwaysVoice) this.intensity += 0.13;
+        if (this.isTouched || window.alwaysVoice) this.intensity += 0.13;
         else this.intensity -= 0.05;
         this.intensity = Math.clamp(this.intensity, 0, 1);
     },

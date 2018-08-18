@@ -282,7 +282,7 @@ var TractUI = {
         //?
         this.drawText(4.5, 0.37, 'h');
 
-        if (Glottis.isTouched || alwaysVoice) {
+        if (Glottis.isTouched || window.alwaysVoice) {
             //voiced consonants
             this.drawText(31.5, fricatives, 'ʒ');
             this.drawText(36, fricatives, 'z');
@@ -486,6 +486,9 @@ var TractUI = {
                 }
             }
         }
+    },
+    handleOSC: function () {
+        
     },
 
 }

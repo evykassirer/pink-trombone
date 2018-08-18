@@ -40,10 +40,14 @@ const osc = new OSC({
 let interval;
 osc.on('open', () => {
     console.log('OSC server ready')
-    interval = setInterval(sendMessage, 300)
+    // interval = setInterval(sendMessage, 300)
 })
 
 osc.on('/glottis', message => {
+    osc.send(new OSC.Message(message.address, message.args[0], message.args[1]));
+});
+
+osc.on('/touch', message => {
     osc.send(new OSC.Message(message.address, message.args[0], message.args[1]));
 });
 
@@ -53,10 +57,6 @@ osc.open()
 function sendMessage() {
     // test OSC data for client
     // replace this with routing to external programs like MaxMSP
-
-    const isTouched = String(Boolean(new Date().getMilliseconds() % 2));
-    osc.send(new OSC.Message('/glottis', 'isTouched', isTouched));
-
     const semitone = (new Date().getMilliseconds() / 100) % 24;
     osc.send(new OSC.Message('/glottis', 'semitone', semitone));
 
@@ -71,13 +71,11 @@ function sendMessage() {
 
     const vibratoFrequency = Math.abs(Math.sin(new Date().getMilliseconds())) * 20;
     osc.send(new OSC.Message('/glottis', 'vibratoFrequency', vibratoFrequency));
-
 }
 
 
 osc.on('error', err => {
     console.error('!!!!', err);
-    debugger
 })
 
 osc.on('close', () => {

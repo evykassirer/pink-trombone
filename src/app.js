@@ -56,7 +56,6 @@ Tract.init();
 TractUI.init();
 OSCAPI.init();
 
-
 requestAnimationFrame(redraw);
 
 function redraw(highResTimestamp) {
@@ -67,7 +66,6 @@ function redraw(highResTimestamp) {
     time = Date.now() / 1000;
     UI.updateTouches();
 }
-
 
 
 /**********************************************************************************/
