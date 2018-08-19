@@ -1,5 +1,5 @@
 import Glottis from "../audio/glottis";
-import AudioSystem from "../audio/audio-system";
+import TractUI from "../ui/tract-ui";
 
 const OSC = require('osc-js');
 
@@ -14,6 +14,8 @@ var OSCAPI = {
         
         this.bindTouch();
         this.bindGlottis();
+        this.bindTract();
+        
 
         window.onunload = () => {
             this.osc.close({
@@ -37,19 +39,32 @@ var OSCAPI = {
             this.glottis[key] = val;
         });
     },
+    bindTract() {
+        this.osc.on('/tract', message => {
+            let key = message.args[0];
+            if (key === 'diameter') {
+                const diameter = message.args.splice(1);
+                this.tract[key] = diameter;
+            }
+        });
+    },
     handleTouches() {
         Glottis.touch = this.touch;
         Glottis.handleOSCParams();
         Glottis.handleOSCTouches();
+
+
+        TractUI.handleOSCParams();
+
     },
     touch: {
         alive: false,
         diameter: 3, // 0 - 4
-        endTime: 1534610410.126,
+        // endTime: 1534610410.126,
         fricative_intensity: 0,
-        id: "mouse0.2884742858736995",
-        index: -25.89487282088425,
-        startTime: 1534610410.06,
+        // id: "mouse0.2884742858736995",
+        // index: -25.89487282088425,
+        // startTime: 1534610410.06,
         x: 0,
         y: 0
     },

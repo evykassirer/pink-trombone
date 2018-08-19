@@ -2,6 +2,7 @@ import Tract from "../audio/tract";
 import Glottis from "../audio/glottis";
 
 import UI from "./ui";
+import OSCAPI from "../osc/api";
 
 var tractCanvas = document.getElementById("tractCanvas");
 var tractCtx = tractCanvas.getContext("2d");
@@ -413,6 +414,8 @@ var TractUI = {
     },
 
     handleTouches: function () {
+        Tract.reshapeByUI = true;
+
         if (this.tongueTouch != 0 && !this.tongueTouch.alive) this.tongueTouch = 0;
 
         if (this.tongueTouch == 0) {
@@ -487,8 +490,13 @@ var TractUI = {
             }
         }
     },
-    handleOSC: function () {
-        
+    handleOSCParams: function () {
+        const diameter = OSCAPI.tract.diameter;
+        if (diameter) {
+            Tract.reshapeByUI = false;
+            Tract.diameter = diameter;
+
+        }
     },
 
 }

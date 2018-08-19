@@ -360,7 +360,7 @@ var UI = {
         Glottis.handleOSCParams();
         Glottis.handleTouches();
         
-        TractUI.handleOSC();
+        TractUI.handleOSCParams();
         TractUI.handleTouches();
     },
 

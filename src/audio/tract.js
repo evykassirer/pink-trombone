@@ -29,6 +29,10 @@ var Tract = {
     noseOutput: 0,
     velumTarget: 0.01,
 
+    // in order for diameter to be set by OSC command
+    // prevent the tract from reshaping to default based on UI
+    reshapeByUI: true,
+
     init: function () {
         this.bladeStart = Math.floor(this.bladeStart * this.n / 44);
         this.tipStart = Math.floor(this.tipStart * this.n / 44);
@@ -202,7 +206,11 @@ var Tract = {
     },
 
     finishBlock: function () {
-        this.reshapeTract(AudioSystem.blockTime);
+        // in order for diameter to be set by OSC command
+        // prevent the tract from reshaping to default based on UI
+        if(this.reshapeByUI){
+            this.reshapeTract(AudioSystem.blockTime);
+        }
         this.calculateReflections();
     },
 

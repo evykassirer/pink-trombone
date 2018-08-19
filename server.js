@@ -51,6 +51,11 @@ osc.on('/touch', message => {
     osc.send(new OSC.Message(message.address, message.args[0], message.args[1]));
 });
 
+osc.on('/tract', message => {
+    osc.send(new OSC.Message(message.address, ...message.args));
+});
+
+
 osc.open()
 
 
