@@ -5,5 +5,5 @@ var tractCtx = tractCanvas.getContext("2d");
 
 var sampleRate;
 var time = 0;
-var alwaysVoice = true;
-var autoWobble = true;
+var voiceOn = false;
+var autoWobble = false;
